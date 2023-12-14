@@ -9,4 +9,11 @@ def test_guest_can_go_to_login_page(driver):
     page = MainPage(driver, link)
     page.open()
     page.go_to_login_page()
-    #time.sleep(3)
+
+@pytest.mark.negative
+def test_guest_can_see_login_link(driver):
+    link = "http://selenium1py.pythonanywhere.com/"
+    page = MainPage(driver, link, 1)
+    page.open()
+    page.should_be_login_link()
+
