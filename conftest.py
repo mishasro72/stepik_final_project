@@ -1,11 +1,11 @@
 import pytest
-#import argparse
+import argparse
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 def pytest_addoption(parser):
 
-    parser.addoption('--language', action = 'store', default = "ru", help = 'Choose youe language')
+    parser.addoption('--language', action = 'store', default = "no", help = 'Choose youe language')
 
 
 @pytest.fixture
