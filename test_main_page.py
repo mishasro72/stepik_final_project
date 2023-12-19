@@ -12,7 +12,6 @@ def test_guest_can_go_to_login_page(driver):
     page = MainPage(driver, link)
     page.open()
     page.go_to_login_page()
-    time.sleep(2)
     login_page = LoginPage(driver, driver.current_url)
     login_page.should_be_login_page()
 
