@@ -18,5 +18,9 @@ class BasePage():
             return False
         return True
     
+    @property
+    def current_url(self) -> str:
+        return self.driver.current_url
+    
 
     
