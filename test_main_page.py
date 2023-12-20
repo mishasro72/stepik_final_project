@@ -5,8 +5,10 @@ import time
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
 from .pages.locators import LoginPageLocators as LPL
+from .pages.locators import MainPageLocators as MPL
+from .pages.locators import BasePageLocators as BPL
 
-@pytest.mark.go_to_login
+@pytest.mark.main
 def test_guest_can_go_to_login_page(driver):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(driver, link)
@@ -48,5 +50,13 @@ def test_register_form_present(driver):
     page = LoginPage(driver, link, 1)
     page.open()
     page.should_be_register_form()
+
+@pytest.mark.negative
+def test_no_message(driver):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
+    page = MainPage(driver, link, 1)
+    page.open()
+    page.should_not_be_success_message(MPL.NO_SUCH_ELEMENT)
+
 
 

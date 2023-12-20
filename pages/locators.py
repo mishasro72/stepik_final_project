@@ -1,8 +1,11 @@
 from selenium.webdriver.common.by import By
 
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 class MainPageLocators():
-    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+   # LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    NO_SUCH_ELEMENT = (By.CSS_SELECTOR, "#login_link_1") # для проверки негатвного теста - отсутсвия элемента на странице 
 
 class LoginPageLocators():
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
