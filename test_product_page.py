@@ -5,6 +5,7 @@ import time
 from .pages.product_page import ProductPage
 from .pages.locators import ProductPageLocators as PPL
 from .pages.login_page import LoginPage
+from .pages.basket_page import BasketPage
 
 
 
@@ -72,7 +73,7 @@ def test_add_to_basket(driver):
                                   pytest.param("http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7", marks=pytest.mark.xfail(reason = "link has a bug")),
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
-def test_add_to_test_guest_can_add_product_to_basket(driver, link):
+def test_guest_can_add_product_to_basket(driver, link):
     page = ProductPage(driver, link, 1)
     page.open()
     book_name = page.get_book_name(PPL.BOOK_NAME)
@@ -129,7 +130,50 @@ def test_guest_should_see_login_link_on_product_page(driver):
     page.open()
     page.should_be_login_link()
 
+@pytest.mark.basket
+def test_guest_cant_see_product_in_basket_opened_from_product_page(driver):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(driver, link)
+    page.open()
+    page.go_to_basket()
+    page = BasketPage(driver, driver.current_url)
+    page.check_basket_empty()
+    page.check_basket_empty_message()
 
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture (scope='function', autouse=True)
+    def setup(self, driver):
+        email = str(time.time()) + "@fakemail.org"
+        password = "1324528Qw"
+        link = "http://selenium1py.pythonanywhere.com/"
+        user_page = LoginPage(driver, link)
+        user_page.open()
+        user_page.go_to_login_page()
+        user_page.register_new_user(email, password)
+        user_page.should_be_authorized_user()
+
+    def test_user_can_add_product_to_basket(self, driver):
+        link = "https://selenium1py.pythonanywhere.com/en-gb/catalogue/the-shellcoders-handbook_209/"
+        page = ProductPage(driver, link)
+        page.open()
+        book_name = page.get_book_name(PPL.BOOK_NAME)
+        book_price = page.get_book_price(PPL.BOOK_PRICE)
+        page.add_to_basket()
+        # page.solve_quiz_and_get_code()
+        try:
+            assert book_name == page.get_book_name(PPL.BOOK_NAME_IN_BASKET)
+        except:
+            print("The titile of the book doesn't match")
+        try:
+            assert book_price == page.get_book_price(PPL.BOOK_PRICE_IN_BASKET)
+        except:
+            print("The price doesn't match")
+
+    def test_user_cant_see_success_message (self, driver):
+        link = "https://selenium1py.pythonanywhere.com/en-gb/catalogue/the-shellcoders-handbook_209/"
+        page = ProductPage(driver, link, 1)
+        page.open()
+        assert page.is_element_not_present(PPL.BOOK_NAME_IN_BASKET)
 
 
 

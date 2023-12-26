@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 import time
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
+from .pages.basket_page import BasketPage
 from .pages.locators import LoginPageLocators as LPL
 from .pages.locators import MainPageLocators as MPL
 from .pages.locators import BasePageLocators as BPL
@@ -57,6 +58,18 @@ def test_no_message(driver):
     page = MainPage(driver, link, 1)
     page.open()
     page.should_not_be_success_message(MPL.NO_SUCH_ELEMENT)
+
+@pytest.mark.basket   
+def test_guest_cant_see_product_in_basket_opened_from_main_page(driver):
+    link = "http://selenium1py.pythonanywhere.com/"
+    page = MainPage(driver, link)
+    page.open()
+    page.go_to_basket()
+    page = BasketPage(driver, driver.current_url)
+    page.check_basket_empty()
+    page.check_basket_empty_message()
+    
+
 
 
 

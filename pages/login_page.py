@@ -1,8 +1,15 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators as LPL
+import time
 
 
 class LoginPage(BasePage):
+    def register_new_user(self, email, password):
+        self.fill_the_field(LPL.REG_LOGIN_FIELD, email)
+        self.fill_the_field(LPL.REG_PASSWORD, password)
+        self.fill_the_field(LPL.REG_CONFIRM_PASSWORD, password)
+        self.click_button(LPL.RETISTER_BUTTON)
+
     def should_be_login_page(self):
         self.should_be_login_url()
         self.should_be_login_form
