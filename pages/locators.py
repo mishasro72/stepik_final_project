@@ -6,7 +6,6 @@ class BasePageLocators():
     USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 class MainPageLocators():
-   # LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     NO_SUCH_ELEMENT = (By.CSS_SELECTOR, "#login_link_1") # для проверки негатвного теста - отсутсвия элемента на странице 
     BASKET_BUTTON = (By.XPATH, "//a[@class = 'btn btn-default']")
 

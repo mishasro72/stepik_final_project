@@ -26,4 +26,12 @@ class ProductPage(BasePage):
     
     def get_book_price(self, locator: tuple) -> str:
         return self.driver.find_element(*locator).text
+    
+    def should_be_book_name_in_basket(self, book_name: str):
+        assert book_name == self.get_book_name(PPL.BOOK_NAME_IN_BASKET), "The titile of the book doesn't match"
+        
+    def should_be_book_price_in_the_basket(self, book_price: str):
+        assert book_price == self.get_book_price(PPL.BOOK_PRICE_IN_BASKET), "The price doesn't match"
+
+
 

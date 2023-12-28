@@ -51,7 +51,7 @@ class BasePage():
     
     def is_desappeared(self, locator: tuple, timeout = 4) -> bool:
         try:
-            wait(self.driver, timeout).until_not(EC.invisibility_of_element_located(locator))
+            wait(self.driver, timeout).until_not(EC.presence_of_all_elements_located(locator))
         except TimeoutException:
             return False
         return True 
@@ -64,6 +64,10 @@ class BasePage():
    
     def should_be_authorized_user(self):
         assert self.is_element_present(BPL.USER_ICON), "User icon is not presented, probably unauthorised user"
+    
+    def should_be_disappeared(self, locator: tuple):
+        assert self.is_desappeared(locator), "The massage is still present"
+
 
     @property
     def current_url(self) -> str:

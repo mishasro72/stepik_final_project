@@ -21,7 +21,6 @@ def test_guest_can_go_to_login_page(driver):
 
 @pytest.mark.main
 def test_guest_can_see_login_link(driver):
-    #link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-shellcoders-handbook_209/?promo=midsummer"
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(driver, link, 1)
     page.open()
@@ -30,7 +29,6 @@ def test_guest_can_see_login_link(driver):
 @pytest.mark.login
 def test_login_url(driver):
     link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
-    #link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-shellcoders-handbook_209/?promo=midsummer"
     page = LoginPage(driver, link, 1)
     page.open()
     page.should_be_login_url()
@@ -38,7 +36,6 @@ def test_login_url(driver):
 @pytest.mark.login
 def test_login_form_present(driver):
     link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
-   # link = "hhttp://selenium1py.pythonanywhere.com/en-gb/catalogue/the-shellcoders-handbook_209/?promo=midsummer"
     page = LoginPage(driver, link, 1)
     page.open()
     print(page.is_element_present(LPL.REGISTER_FORM))
@@ -47,7 +44,6 @@ def test_login_form_present(driver):
 @pytest.mark.login
 def test_register_form_present(driver):
     link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
-   # link = "http://selenium1py.pythonanywhere.com/en-gb/"
     page = LoginPage(driver, link, 1)
     page.open()
     page.should_be_register_form()

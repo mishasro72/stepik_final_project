@@ -18,7 +18,6 @@ class LoginPage(BasePage):
     def should_be_login_url(self):
         assert 'login' in self.driver.current_url, "Подстроки login нет в текущем url браузера"
 
-    #@property
     def should_be_login_form(self):
         assert self.is_element_present(LPL.LOGIN_FORM), "Login form is not present"
 
